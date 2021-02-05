@@ -13,7 +13,7 @@
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="L2_Colchugina_Irina" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="VK_Colchugina" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,66 +24,22 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Unn-lT-cIZ">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="818"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi. Enter your login &amp; password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s97-Ee-lry">
-                                                <rect key="frame" x="16" y="81" width="342" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jR9-mz-0dw">
-                                                <rect key="frame" x="16" y="243" width="342" height="30"/>
-                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
-                                                <state key="normal" title="Sing in"/>
-                                                <connections>
-                                                    <action selector="singInButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bt2-8Z-4cY"/>
-                                                </connections>
-                                            </button>
-                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hourglass.bottomhalf.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="VeT-Ba-bi8">
-                                                <rect key="frame" x="137" y="360" width="100" height="97.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="100" id="56W-ez-joO"/>
-                                                    <constraint firstAttribute="height" constant="100" id="DXC-Xx-sp9"/>
-                                                </constraints>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incorrect login or password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ix6-Ll-tje">
-                                                <rect key="frame" x="93.5" y="119" width="187" height="18"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="textColor" systemColor="systemRedColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cdW-LQ-zol">
-                                                <rect key="frame" x="69" y="192" width="236" height="34"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="login" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C2a-Pk-Tfr">
-                                                <rect key="frame" x="69" y="145" width="236" height="34"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
+                                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xGN-by-LSh">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="818"/>
+                                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <wkWebViewConfiguration key="configuration">
+                                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                                    <wkPreferences key="preferences"/>
+                                                </wkWebViewConfiguration>
+                                            </wkWebView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="s97-Ee-lry" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Unn-lT-cIZ" secondAttribute="leading" constant="16" id="0GW-YS-GnP"/>
-                                            <constraint firstItem="C2a-Pk-Tfr" firstAttribute="leading" secondItem="Unn-lT-cIZ" secondAttribute="leading" constant="69" id="2en-kw-BXM"/>
-                                            <constraint firstItem="ix6-Ll-tje" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Unn-lT-cIZ" secondAttribute="leading" constant="93.5" id="2nI-rc-ssr"/>
-                                            <constraint firstItem="jR9-mz-0dw" firstAttribute="top" secondItem="cdW-LQ-zol" secondAttribute="bottom" constant="17" id="36Y-cg-Dse"/>
+                                            <constraint firstItem="xGN-by-LSh" firstAttribute="leading" secondItem="Unn-lT-cIZ" secondAttribute="leading" id="71V-y8-E97"/>
+                                            <constraint firstItem="xGN-by-LSh" firstAttribute="centerX" secondItem="Unn-lT-cIZ" secondAttribute="centerX" id="7T5-FD-q6y"/>
                                             <constraint firstAttribute="height" constant="818" id="7Xe-zS-E33"/>
-                                            <constraint firstItem="VeT-Ba-bi8" firstAttribute="centerX" secondItem="Unn-lT-cIZ" secondAttribute="centerX" id="Bae-6w-OHJ"/>
-                                            <constraint firstAttribute="trailing" secondItem="C2a-Pk-Tfr" secondAttribute="trailing" constant="69" id="E4b-3d-ENV"/>
-                                            <constraint firstItem="VeT-Ba-bi8" firstAttribute="centerY" secondItem="Unn-lT-cIZ" secondAttribute="centerY" id="EeL-A0-9Wt"/>
-                                            <constraint firstAttribute="trailing" secondItem="jR9-mz-0dw" secondAttribute="trailing" constant="16" id="LZz-2d-HQI"/>
-                                            <constraint firstItem="cdW-LQ-zol" firstAttribute="top" secondItem="C2a-Pk-Tfr" secondAttribute="bottom" constant="13" id="MIe-Jb-fs5"/>
-                                            <constraint firstAttribute="bottom" secondItem="jR9-mz-0dw" secondAttribute="bottom" constant="545" id="NrD-Er-KIs"/>
-                                            <constraint firstItem="jR9-mz-0dw" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Unn-lT-cIZ" secondAttribute="leading" constant="16" id="QmV-jo-FgJ"/>
-                                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="s97-Ee-lry" secondAttribute="trailing" constant="16" id="Tdn-Wd-CLJ"/>
-                                            <constraint firstItem="ix6-Ll-tje" firstAttribute="top" secondItem="Unn-lT-cIZ" secondAttribute="top" constant="119" id="aiO-gw-DHw"/>
-                                            <constraint firstItem="cdW-LQ-zol" firstAttribute="leading" secondItem="Unn-lT-cIZ" secondAttribute="leading" constant="69" id="dNL-T0-G5g"/>
-                                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="ix6-Ll-tje" secondAttribute="trailing" constant="93.5" id="l1u-Tn-cW4"/>
-                                            <constraint firstAttribute="bottom" secondItem="ix6-Ll-tje" secondAttribute="bottom" constant="681" id="mE4-Pp-Pyy"/>
-                                            <constraint firstItem="C2a-Pk-Tfr" firstAttribute="top" secondItem="s97-Ee-lry" secondAttribute="bottom" constant="43" id="pnF-D3-eg5"/>
-                                            <constraint firstItem="s97-Ee-lry" firstAttribute="top" relation="lessThanOrEqual" secondItem="Unn-lT-cIZ" secondAttribute="top" constant="100" id="vFq-uA-siZ"/>
-                                            <constraint firstAttribute="trailing" secondItem="cdW-LQ-zol" secondAttribute="trailing" constant="69" id="vUR-1t-hTp"/>
+                                            <constraint firstItem="xGN-by-LSh" firstAttribute="centerY" secondItem="Unn-lT-cIZ" secondAttribute="centerY" id="PXQ-fo-tgZ"/>
+                                            <constraint firstItem="xGN-by-LSh" firstAttribute="top" secondItem="Unn-lT-cIZ" secondAttribute="top" id="vBf-lm-mEU"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -109,12 +65,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="errorLable" destination="ix6-Ll-tje" id="WQx-nT-Ji0"/>
-                        <outlet property="helloLable" destination="s97-Ee-lry" id="6sl-Kd-ja8"/>
-                        <outlet property="loginTextField" destination="C2a-Pk-Tfr" id="4NK-lG-3Ny"/>
-                        <outlet property="passwordTextField" destination="cdW-LQ-zol" id="ORF-O1-wuZ"/>
-                        <outlet property="singInButtomOutlet" destination="jR9-mz-0dw" id="4mL-BY-fi6"/>
-                        <outlet property="timeImageView" destination="VeT-Ba-bi8" id="Wc5-ah-zbB"/>
+                        <outlet property="vkView" destination="xGN-by-LSh" id="Lgg-qp-sAP"/>
                         <segue destination="k6T-Ho-TmZ" kind="show" identifier="tapBarController" id="2KF-Sc-bMv"/>
                     </connections>
                 </viewController>
@@ -125,7 +76,7 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="ola-IE-Mss">
             <objects>
-                <tabBarController modalPresentationStyle="overFullScreen" id="k6T-Ho-TmZ" customClass="TabBarViewController" customModule="L2_Colchugina_Irina" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController modalPresentationStyle="overFullScreen" id="k6T-Ho-TmZ" customClass="TabBarViewController" customModule="VK_Colchugina" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="WAx-Zx-M1K"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PVi-QF-EMd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -145,7 +96,7 @@
         <!--Publics-->
         <scene sceneID="TcR-8u-tRm">
             <objects>
-                <tableViewController modalPresentationStyle="fullScreen" id="2sF-0W-zNL" customClass="AllPublicController" customModule="L2_Colchugina_Irina" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController modalPresentationStyle="fullScreen" id="2sF-0W-zNL" customClass="AllPublicController" customModule="VK_Colchugina" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kvf-0w-q9p">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -156,7 +107,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AllPublicCell" rowHeight="171" id="kOd-Mj-uqn" customClass="AllPublicCell" customModule="L2_Colchugina_Irina" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AllPublicCell" rowHeight="171" id="kOd-Mj-uqn" customClass="AllPublicCell" customModule="VK_Colchugina" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="414" height="171"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kOd-Mj-uqn" id="Epf-fG-xEW">
@@ -220,7 +171,7 @@
         <!--New Publics-->
         <scene sceneID="xp6-PA-T2S">
             <objects>
-                <tableViewController id="Jem-ig-dCN" customClass="NewPublicsController" customModule="L2_Colchugina_Irina" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Jem-ig-dCN" customClass="NewPublicsController" customModule="VK_Colchugina" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kcL-sv-SQk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -231,7 +182,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewPublicCell" rowHeight="178" id="FKo-16-IAv" customClass="NewPublicCell" customModule="L2_Colchugina_Irina" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewPublicCell" rowHeight="178" id="FKo-16-IAv" customClass="NewPublicCell" customModule="VK_Colchugina" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="414" height="178"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FKo-16-IAv" id="qfq-oC-zDP">
@@ -283,23 +234,23 @@
         <!--News-->
         <scene sceneID="4Fr-HY-Zcg">
             <objects>
-                <tableViewController id="BTN-ms-JET" customClass="NewsController" customModule="L2_Colchugina_Irina" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="BTN-ms-JET" customClass="NewsController" customModule="VK_Colchugina" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hDX-jd-HTZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsCell" rowHeight="642" id="mdt-rf-zaZ" customClass="NewsCell" customModule="L2_Colchugina_Irina" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsCell" rowHeight="642" id="mdt-rf-zaZ" customClass="NewsCell" customModule="VK_Colchugina" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="642"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mdt-rf-zaZ" id="jjP-b3-5my">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="642"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Quq-l3-fsX" userLabel="Shadow Control" customClass="ShadowOfPublicIconControl" customModule="L2_Colchugina_Irina" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Quq-l3-fsX" userLabel="Shadow Control" customClass="ShadowOfPublicIconControl" customModule="VK_Colchugina" customModuleProvider="target">
                                             <rect key="frame" x="20" y="11" width="66" height="66"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="psE-IY-00X" userLabel="Icon Control" customClass="IconControl" customModule="L2_Colchugina_Irina" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="psE-IY-00X" userLabel="Icon Control" customClass="IconControl" customModule="VK_Colchugina" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Ih8-bx-QIV">
@@ -351,7 +302,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zaX-TF-OyZ" customClass="FeedbackControl" customModule="L2_Colchugina_Irina" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zaX-TF-OyZ" customClass="FeedbackControl" customModule="VK_Colchugina" customModuleProvider="target">
                                             <rect key="frame" x="20" y="592" width="374" height="27"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Blo-qo-cEK">
@@ -501,7 +452,7 @@
         <!--Friends-->
         <scene sceneID="Q2b-YN-4Ps">
             <objects>
-                <tableViewController id="8mV-65-bUe" customClass="FriendsController" customModule="L2_Colchugina_Irina" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="8mV-65-bUe" customClass="FriendsController" customModule="VK_Colchugina" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="zas-6u-49s">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -512,7 +463,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FriendsCell" rowHeight="76" id="9MF-ZQ-Bv7" customClass="FriendCell" customModule="L2_Colchugina_Irina" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FriendsCell" rowHeight="76" id="9MF-ZQ-Bv7" customClass="FriendCell" customModule="VK_Colchugina" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="99.5" width="414" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9MF-ZQ-Bv7" id="R16-0f-6UC">
@@ -525,10 +476,10 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rze-Kh-cvt" userLabel="Shadow Control" customClass="ShadowOfIconControl" customModule="L2_Colchugina_Irina" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rze-Kh-cvt" userLabel="Shadow Control" customClass="ShadowOfIconControl" customModule="VK_Colchugina" customModuleProvider="target">
                                             <rect key="frame" x="308" y="5" width="66" height="66"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wk0-K8-hh4" userLabel="Icon Control" customClass="IconControl" customModule="L2_Colchugina_Irina" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wk0-K8-hh4" userLabel="Icon Control" customClass="IconControl" customModule="VK_Colchugina" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="esD-xD-4kq">
@@ -592,7 +543,7 @@
         <!--About Friend Controller-->
         <scene sceneID="HUA-SU-Lwh">
             <objects>
-                <collectionViewController id="Exq-vH-iDF" customClass="AboutFriendController" customModule="L2_Colchugina_Irina" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="Exq-vH-iDF" customClass="AboutFriendController" customModule="VK_Colchugina" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="g6Q-wZ-UMb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -604,7 +555,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" reuseIdentifier="AboutFriendCell" id="yNd-sm-aN6" customClass="AboutFriendCell" customModule="L2_Colchugina_Irina" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" reuseIdentifier="AboutFriendCell" id="yNd-sm-aN6" customClass="AboutFriendCell" customModule="VK_Colchugina" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="WG5-oP-NSz">
@@ -618,7 +569,7 @@
                                                 <constraint firstAttribute="height" constant="140" id="Euy-Mc-aRa"/>
                                             </constraints>
                                         </imageView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ml4-GY-zHu" customClass="LikeControl" customModule="L2_Colchugina_Irina" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ml4-GY-zHu" customClass="LikeControl" customModule="VK_Colchugina" customModuleProvider="target">
                                             <rect key="frame" x="104" y="129" width="66" height="41"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blueHeartForLike" translatesAutoresizingMaskIntoConstraints="NO" id="8TV-PS-b4o">
@@ -682,7 +633,7 @@
         <!--Animated Photos Controller-->
         <scene sceneID="5s9-tn-qfY">
             <objects>
-                <viewController id="gKR-Z9-V7H" customClass="AnimatedPhotosController" customModule="L2_Colchugina_Irina" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gKR-Z9-V7H" customClass="AnimatedPhotosController" customModule="VK_Colchugina" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b4D-Ih-X8i">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -766,7 +717,6 @@
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="chevron.forward" catalog="system" width="96" height="128"/>
         <image name="eye.fill" catalog="system" width="128" height="78"/>
-        <image name="hourglass.bottomhalf.fill" catalog="system" width="109" height="128"/>
         <image name="message.fill" catalog="system" width="128" height="113"/>
         <image name="newspaper" catalog="system" width="128" height="108"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
@@ -778,9 +728,6 @@
         <image name="suit.heart.fill" catalog="system" width="128" height="109"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

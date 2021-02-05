@@ -6,22 +6,23 @@
 //
 
 import UIKit
+import Alamofire
+import SDWebImage
 
 class FriendsController: UITableViewController, UISearchBarDelegate {
     
     
     @IBOutlet weak var friendsSearchBar: UISearchBar!
-    let friendsList = [
-        Friends(name: "Jameson Sam", imageFile: [UIImage(named: "Better than yesterday")!, UIImage(named: "Sam")!, UIImage(named: "Sam")!, UIImage(named: "Sam")!, UIImage(named: "Sam")!]),
-        Friends(name: "Morgan Angela", imageFile: [UIImage(named: "Angela")!, UIImage(named: "Angela")!, UIImage(named: "Angela")!, UIImage(named: "Angela")!]),
-        Friends(name: "Anderson Jane", imageFile: [UIImage(named: "Jane")!, UIImage(named: "Jane")!, UIImage(named: "Jane")!, UIImage(named: "Jane")!, UIImage(named: "Jane")!]),
-        Friends(name: "Johnson Mike", imageFile: [UIImage(named: "Mike")!, UIImage(named: "Mike")!, UIImage(named: "Mike")!, UIImage(named: "Mike")!, UIImage(named: "Mike")!]),
-        Friends(name: "Brown Smith", imageFile: [UIImage(named: "Smith")!, UIImage(named: "Smith")!, UIImage(named: "Smith")!, UIImage(named: "Smith")!, UIImage(named: "Smith")!]),
-        Friends(name: "Moore Tom", imageFile: [UIImage(named: "Tom")!, UIImage(named: "Tom")!, UIImage(named: "Tom")!, UIImage(named: "Tom")!, UIImage(named: "Tom")!])
-    ]
-    var lettersOfSection: [String] = []
-    var allFriendsInSections: [[Friends]] = []
-    var filtredFriendsList: [Friends] = []
+
+    var sectionName: [String] = []
+    var friendsBySection: [[FriendsInfo]] = [[]]
+    var friendsInSearch: [FriendsInfo] = []
+    
+    let friendsService = FriendsService()
+    var freindsListFromResponse = FriendsResponse()
+    var friendsList = [FriendsInfo]()
+    
+    
     var searchActive: Bool {
         if friendsSearchBar.text == "" {
             return false
@@ -34,11 +35,11 @@ class FriendsController: UITableViewController, UISearchBarDelegate {
     
     // MARK: - Add letters for section header
     
-    private func sortLetters(allFriends: [Friends]) -> [String] {
+    private func sortLetters(allFriends: [FriendsInfo]) -> [String] {
         var allLetters = [String]()
-        for friends in friendsList {
-            if !allLetters.contains(String(friends.name.first!)) {
-                allLetters.append(String(friends.name.first!))
+        for friends in allFriends {
+            if !allLetters.contains("\(friends.firstName.first!)") {
+                allLetters.append("\(friends.firstName.first!)")
             }
         }
         return allLetters.sorted()
@@ -47,15 +48,15 @@ class FriendsController: UITableViewController, UISearchBarDelegate {
     
     //MARK: - Filter friends by sections
     
-    private func sortFriendOfSection (letters: [String], friends: [Friends]) -> [[Friends]] {
+    private func sortFriendOfSection (letters: [String], allFriendsInfo: [FriendsInfo]) -> [[FriendsInfo]] {
         var i = 0
-        var finishFriendsList = [[Friends]]()
+        var finishFriendsList = [[FriendsInfo]]()
         for letter in letters {
             finishFriendsList.append([])
-            for Friends in friends {
-                if letter == String(Friends.name.first!) {
+            for item in allFriendsInfo {
+                if letter == String(item.firstName.first!) {
                     
-                    finishFriendsList[i].append(Friends)
+                    finishFriendsList[i].append(item)
                 }
             }
             i += 1
@@ -64,25 +65,50 @@ class FriendsController: UITableViewController, UISearchBarDelegate {
     }
     
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        lettersOfSection = sortLetters(allFriends: friendsList)
-        allFriendsInSections = sortFriendOfSection(letters: lettersOfSection, friends: friendsList)
-        filtredFriendsList = friendsList
+        
     }
-    
+   
     
     override func loadView() {
         super.loadView()
         
-        
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         friendsSearchBar.delegate = self
-        print(Session.shared.id, Session.shared.token)
+        let tapForHiddenKeybourd = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tapForHiddenKeybourd)
+        
+        friendsService.loadFriendsData { [weak self] friends in
+            self?.freindsListFromResponse = friends
+            
+            for item in (0..<self!.freindsListFromResponse.count) {
+                if self!.freindsListFromResponse.firstName[item] != "DELETED" &&  self!.freindsListFromResponse.firstName[item] != "" {
+                    let newValue = FriendsInfo()
+                    newValue.firstName = self!.freindsListFromResponse.firstName[item]
+                    newValue.lastName = self!.freindsListFromResponse.lastName[item]
+                    newValue.photo = self!.freindsListFromResponse.photo[item]
+                    newValue.id = self!.freindsListFromResponse.id[item]
+                    self!.friendsList.append(newValue)
+                }
+            }
+            self!.sectionName = self!.sortLetters(allFriends: self!.friendsList)
+            self!.friendsBySection = self!.sortFriendOfSection(letters: self!.sectionName, allFriendsInfo: self!.friendsList)
+            self!.friendsInSearch = self!.friendsList
+            self?.tableView.reloadData()
+            
+        }
     }
+    
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
     
     
     
@@ -90,16 +116,17 @@ class FriendsController: UITableViewController, UISearchBarDelegate {
         if searchActive {
             return 1
         } else {
-            return lettersOfSection.count
+            return sectionName.count
         }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchActive {
-            return filtredFriendsList.count
+       
+         if searchActive {
+            return friendsInSearch.count
         }
         else {
-            return allFriendsInSections[section].count
+            return friendsBySection[section].count
         }
         
     }
@@ -109,47 +136,53 @@ class FriendsController: UITableViewController, UISearchBarDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendsCell", for: indexPath) as! FriendCell
         
         if searchActive {
-            cell.nameLable.text = filtredFriendsList[indexPath.row].name
-            cell.iconImage.image = filtredFriendsList[indexPath.row].imageFile[0]
+            let friend = friendsInSearch[indexPath.row]
+            cell.nameLable.text = "\(friend.firstName) \(friend.lastName)"
+            let url = URL(string: friend.photo)
+            cell.iconImage.sd_setImage(with: url, completed: nil)
         }
         else {
-            cell.nameLable.text = allFriendsInSections[indexPath.section][indexPath.row].name
-            cell.iconImage.image = allFriendsInSections[indexPath.section][indexPath.row].imageFile[0]
-            
+            let friend = friendsBySection[indexPath.section][indexPath.row]
+            cell.nameLable.text = "\(friend.firstName) \(friend.lastName)"
+            let url = URL(string: friend.photo)
+            cell.iconImage.sd_setImage(with: url, completed: nil)
+
         }
         
         return cell
+        
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if searchActive && filtredFriendsList.count != 0{
-            
+
+        if searchActive && !friendsInSearch.isEmpty{
+
             return "Search friends"
         }
-        else if searchActive && filtredFriendsList.count == 0 {
+        else if searchActive && friendsInSearch.isEmpty {
             return "NO RESULTS"
         }
         else {
-            return lettersOfSection[section]
+            return sectionName[section]
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "AboutFriendSegue",
-           let destinanionVC = segue.destination as? AnimatedPhotosController,
-           let indexPath = tableView.indexPathForSelectedRow {
-            if searchActive {
-                destinanionVC.title = filtredFriendsList[indexPath.row].name
-                aboutIconForSegue = filtredFriendsList[indexPath.row].imageFile
-            }
-            else {
-                destinanionVC.title = allFriendsInSections[indexPath.section][indexPath.row].name
-                aboutIconForSegue = allFriendsInSections[indexPath.section][indexPath.row].imageFile
-            }
-            
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//        if segue.identifier == "AboutFriendSegue",
+//           let destinanionVC = segue.destination as? AnimatedPhotosController,
+//           let indexPath = tableView.indexPathForSelectedRow {
+//            if searchActive {
+//                destinanionVC.title = friendsInSearch[indexPath.row].first_name + " " +  friendsWhoAreInSomeSection[indexPath.section][indexPath.row].last_name
+//                aboutIconForSegue = friendsInSearch[indexPath.row].photo
+//            }
+//            else {
+//                destinanionVC.title = allFriendsInSections[indexPath.section][indexPath.row].name
+//                aboutIconForSegue = allFriendsInSections[indexPath.section][indexPath.row].imageFile
+//            }
+//
+//        }
+//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -158,16 +191,16 @@ class FriendsController: UITableViewController, UISearchBarDelegate {
     
     //MARK: - SearchBar Configurations
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filtredFriendsList = []
+        friendsInSearch = []
         for item in friendsList {
-            let itemString = String (item.name)
+            let itemString = "\(item.firstName) \(item.lastName)"
             if itemString.lowercased().contains(searchText.lowercased()) {
-                filtredFriendsList.append(item)
+                friendsInSearch.append(item)
             }
-            
+
         }
         self.tableView.reloadData()
     }
-    
+
     
 }
