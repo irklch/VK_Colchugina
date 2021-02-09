@@ -17,11 +17,8 @@ class FriendsController: UITableViewController, UISearchBarDelegate {
     var sectionName: [String] = []
     var friendsBySection: [[FriendsInfo]] = [[]]
     var friendsInSearch: [FriendsInfo] = []
-    
     let friendsService = FriendsService()
-    var freindsListFromResponse = FriendsResponse()
     var friendsList = [FriendsInfo]()
-    
     
     var searchActive: Bool {
         if friendsSearchBar.text == "" {
@@ -32,41 +29,32 @@ class FriendsController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    
-    // MARK: - Add letters for section header
-    
-    private func sortLetters(allFriends: [FriendsInfo]) -> [String] {
-        var allLetters = [String]()
-        for friends in allFriends {
-            if !allLetters.contains("\(friends.firstName.first!)") {
-                allLetters.append("\(friends.firstName.first!)")
-            }
-        }
-        return allLetters.sorted()
-    }
-    
-    
-    //MARK: - Filter friends by sections
-    
-    private func sortFriendOfSection (letters: [String], allFriendsInfo: [FriendsInfo]) -> [[FriendsInfo]] {
-        var i = 0
-        var finishFriendsList = [[FriendsInfo]]()
-        for letter in letters {
-            finishFriendsList.append([])
-            for item in allFriendsInfo {
-                if letter == String(item.firstName.first!) {
-                    
-                    finishFriendsList[i].append(item)
-                }
-            }
-            i += 1
-        }
-        return finishFriendsList
-    }
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        let tapForHiddenKeybourd = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tapForHiddenKeybourd)
+        
+        friendsService.loadFriendsData { [weak self] friends in
+            
+            for item in (0..<friends.count) {
+                if friends.firstName[item] != "DELETED" &&  friends.firstName[item] != "" {
+                    let newValue = FriendsInfo()
+                    newValue.firstName = friends.firstName[item]
+                    newValue.lastName = friends.lastName[item]
+                    newValue.photo = friends.photo[item]
+                    newValue.id = friends.id[item]
+                    self!.friendsList.append(newValue)
+                }
+            }
+       
+            self!.sectionName = sortLetters(allFriends: self!.friendsList)
+            self!.friendsBySection = sortFriendOfSection(letters: self!.sectionName, allFriendsInfo: self!.friendsList)
+            self!.friendsInSearch = self!.friendsList
+            self?.tableView.reloadData()
+            
+            
+        }
         
     }
    
@@ -79,28 +67,8 @@ class FriendsController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         friendsSearchBar.delegate = self
-        let tapForHiddenKeybourd = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        view.addGestureRecognizer(tapForHiddenKeybourd)
         
-        friendsService.loadFriendsData { [weak self] friends in
-            self?.freindsListFromResponse = friends
-            
-            for item in (0..<self!.freindsListFromResponse.count) {
-                if self!.freindsListFromResponse.firstName[item] != "DELETED" &&  self!.freindsListFromResponse.firstName[item] != "" {
-                    let newValue = FriendsInfo()
-                    newValue.firstName = self!.freindsListFromResponse.firstName[item]
-                    newValue.lastName = self!.freindsListFromResponse.lastName[item]
-                    newValue.photo = self!.freindsListFromResponse.photo[item]
-                    newValue.id = self!.freindsListFromResponse.id[item]
-                    self!.friendsList.append(newValue)
-                }
-            }
-            self!.sectionName = self!.sortLetters(allFriends: self!.friendsList)
-            self!.friendsBySection = self!.sortFriendOfSection(letters: self!.sectionName, allFriendsInfo: self!.friendsList)
-            self!.friendsInSearch = self!.friendsList
-            self?.tableView.reloadData()
-            
-        }
+       
     }
     
     
@@ -108,8 +76,6 @@ class FriendsController: UITableViewController, UISearchBarDelegate {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-    
-    
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -167,22 +133,36 @@ class FriendsController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-//        if segue.identifier == "AboutFriendSegue",
-//           let destinanionVC = segue.destination as? AnimatedPhotosController,
-//           let indexPath = tableView.indexPathForSelectedRow {
-//            if searchActive {
-//                destinanionVC.title = friendsInSearch[indexPath.row].first_name + " " +  friendsWhoAreInSomeSection[indexPath.section][indexPath.row].last_name
-//                aboutIconForSegue = friendsInSearch[indexPath.row].photo
-//            }
-//            else {
-//                destinanionVC.title = allFriendsInSections[indexPath.section][indexPath.row].name
-//                aboutIconForSegue = allFriendsInSections[indexPath.section][indexPath.row].imageFile
-//            }
-//
-//        }
-//    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+//        self.performSegue(withIdentifier: "AboutFriendSegue", sender: nil)
+        if segue.identifier == "AboutFriendSegue",
+           let destinanionVC = segue.destination as? AnimatedFriendsPhotosController,
+           let indexPath = tableView.indexPathForSelectedRow {
+
+            if searchActive {
+                friendsService.loadFriendsPhotos(id: friendsInSearch[indexPath.row].id) { [weak self] friendsPhoto in
+                    photosForSegue = friendsPhoto
+                    let friend = self!.friendsInSearch[indexPath.row]
+                    destinanionVC.title = "\(friend.firstName) \(friend.lastName)"
+//                    self!.performSegue(withIdentifier: "AboutFriendSegue", sender: nil)
+                }
+
+            }
+            else {
+                friendsService.loadFriendsPhotos(id: friendsInSearch[indexPath.row].id) { [weak self] friendsPhoto in
+                    photosForSegue = friendsPhoto
+                    let friend = self!.friendsBySection[indexPath.section][indexPath.row]
+                    destinanionVC.title = "\(friend.firstName) \(friend.lastName)"
+//                    self!.performSegue(withIdentifier: "AboutFriendSegue", sender: nil)
+                }
+
+            }
+
+        }
+
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

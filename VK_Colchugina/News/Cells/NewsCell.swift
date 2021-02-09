@@ -19,7 +19,7 @@ class NewsCell: UITableViewCell {
     @IBOutlet weak var newsTextLable: UILabel!
     
     @IBOutlet weak var newsIconImageView: UIImageView!
-    @IBOutlet weak var shadowControl: ShadowOfIconControl!
+    @IBOutlet weak var shadowControl: ShadowOfFriendIconControl!
     
     @IBOutlet weak var feedbackControl: LikeControl!
     

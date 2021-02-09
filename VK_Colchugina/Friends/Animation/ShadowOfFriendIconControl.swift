@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ShadowOfIconControl: UIControl {
+class ShadowOfFriendIconControl: UIControl {
     
     override func awakeFromNib() {
         super.awakeFromNib()

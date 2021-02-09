@@ -250,7 +250,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Quq-l3-fsX" userLabel="Shadow Control" customClass="ShadowOfPublicIconControl" customModule="VK_Colchugina" customModuleProvider="target">
                                             <rect key="frame" x="20" y="11" width="66" height="66"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="psE-IY-00X" userLabel="Icon Control" customClass="IconControl" customModule="VK_Colchugina" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="psE-IY-00X" userLabel="Icon Control" customClass="FriendsIconControl" customModule="VK_Colchugina" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Ih8-bx-QIV">
@@ -476,10 +476,10 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rze-Kh-cvt" userLabel="Shadow Control" customClass="ShadowOfIconControl" customModule="VK_Colchugina" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rze-Kh-cvt" userLabel="Shadow Control" customClass="ShadowOfFriendIconControl" customModule="VK_Colchugina" customModuleProvider="target">
                                             <rect key="frame" x="308" y="5" width="66" height="66"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wk0-K8-hh4" userLabel="Icon Control" customClass="IconControl" customModule="VK_Colchugina" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wk0-K8-hh4" userLabel="Icon Control" customClass="FriendsIconControl" customModule="VK_Colchugina" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="esD-xD-4kq">
@@ -522,7 +522,7 @@
                                 <connections>
                                     <outlet property="iconImage" destination="esD-xD-4kq" id="oKS-0A-ORM"/>
                                     <outlet property="nameLable" destination="gNt-8Y-VrN" id="FDb-mE-uD7"/>
-                                    <segue destination="gKR-Z9-V7H" kind="show" identifier="AboutFriendSegue" id="omc-2I-yN8"/>
+                                    <segue destination="gKR-Z9-V7H" kind="show" identifier="AboutFriendSegue" id="hgN-wD-FYM"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -630,10 +630,10 @@
             </objects>
             <point key="canvasLocation" x="3194" y="-1365"/>
         </scene>
-        <!--Animated Photos Controller-->
+        <!--Animated Friends Photos Controller-->
         <scene sceneID="5s9-tn-qfY">
             <objects>
-                <viewController id="gKR-Z9-V7H" customClass="AnimatedPhotosController" customModule="VK_Colchugina" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gKR-Z9-V7H" customClass="AnimatedFriendsPhotosController" customModule="VK_Colchugina" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b4D-Ih-X8i">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -686,7 +686,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eUR-wc-p0K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3153.6231884057975" y="-439.28571428571428"/>
+            <point key="canvasLocation" x="3107" y="-439"/>
         </scene>
         <!--Friends-->
         <scene sceneID="AEX-OW-dyN">

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-class IconControl: UIControl {
+class FriendsIconControl: UIControl {
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import SDWebImage
 
 class FriendsInfo {
     var firstName = ""
@@ -63,8 +64,9 @@ class JsonPhotosResponse: Decodable {
 }
 
 class PhotosResponse: Decodable{
-    let url = ""
+    var url = [""]
     enum CodingKeys: String, CodingKey {
+        case count
         case items
     }
     enum ItemsKeys: String, CodingKey {
@@ -77,17 +79,21 @@ class PhotosResponse: Decodable{
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        let count = try values.decode(Int.self, forKey: .count)
         var itemsValues = try values.nestedUnkeyedContainer(forKey: .items)
-        let sizeValues = try itemsValues.nestedUnkeyedContainer(forKey: .size)
-        let firstWeatherValues = try itemsValues.nestedContainer(keyedBy: ItemsKeys.self)
-
-
         
-
+        for _ in (0..<count) {
+            let someItemsValues = try itemsValues.nestedContainer(keyedBy: ItemsKeys.self)
+            var sizeValues = try someItemsValues.nestedUnkeyedContainer(forKey: .sizes)
+            for _ in (0..<sizeValues.count!) {
+                let someSizeValue = try sizeValues.nestedContainer(keyedBy: SizesKeys.self)
+                self.url.append(try someSizeValue.decode(String.self, forKey: .url))
+               
+            }
+            }
+        }
     }
-    
-    
-}
+
 
 
 
@@ -102,25 +108,27 @@ class FriendsService {
                 completion(friends.response)
             }
             catch {
-                print("!!!!!!!!!!!!!error              \(error)")
+                print("\(error)")
             }
         }
         
     }
     
-    func loadFriendsPhotos(id: Int, completion: @escaping (FriendsResponse) -> Void )
+    func loadFriendsPhotos(id: Int, completion: @escaping (PhotosResponse) -> Void )
     {
-        AF.request("https://api.vk.com/method/photos.get?owner_id=\(id)&album_id=profile&access_token=\(Session.shared.token!)&v=5.126").responseJSON { (response) in
+        AF.request("https://api.vk.com/method/photos.get?owner_id=\(id)&album_id=profile&access_token=\(Session.shared.token!)&v=5.126").responseData { (response) in
             do {
-                let friends = try JSONDecoder().decode(JsonFriendsResponse.self, from: response.value!)
-                completion(friends.response)
+                let friendsPhoto = try JSONDecoder().decode(JsonPhotosResponse.self, from: response.value!)
+                print("\(friendsPhoto.response)")
+                completion(friendsPhoto.response)
             }
             catch {
-                print("!!!!!!!!!!!!!error              \(error)")
+                print("\(error)")
             }
         }
     }
 }
+
 
 
 
