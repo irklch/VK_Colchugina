@@ -1,0 +1,30 @@
+
+/* Class = "UILabel"; text = "This is more "; ObjectID = "22h-3Q-8Qa"; */
+"22h-3Q-8Qa.text" = "This is more ";
+
+/* Class = "UITabBarItem"; title = "Public"; ObjectID = "H9F-cg-Eyr"; */
+"H9F-cg-Eyr.title" = "Public";
+
+/* Class = "UITextField"; text = "Login"; ObjectID = "Mtq-9U-Z0j"; */
+"Mtq-9U-Z0j.text" = "Login";
+
+/* Class = "UITextField"; text = "Password"; ObjectID = "SJz-W8-vhC"; */
+"SJz-W8-vhC.text" = "Password";
+
+/* Class = "UITabBarItem"; title = "Friends"; ObjectID = "Sk2-4L-N8g"; */
+"Sk2-4L-N8g.title" = "Friends";
+
+/* Class = "UIButton"; normalTitle = "Sing in"; ObjectID = "jR9-mz-0dw"; */
+"jR9-mz-0dw.normalTitle" = "Sing in";
+
+/* Class = "UINavigationItem"; title = "Friends"; ObjectID = "kxS-XZ-xOn"; */
+"kxS-XZ-xOn.title" = "Friends";
+
+/* Class = "UILabel"; text = "Hello"; ObjectID = "s97-Ee-lry"; */
+"s97-Ee-lry.text" = "Hello";
+
+/* Class = "UILabel"; text = "Learn more about public"; ObjectID = "sG0-M6-XSE"; */
+"sG0-M6-XSE.text" = "Learn more about public";
+
+/* Class = "UINavigationItem"; title = "Public"; ObjectID = "ucz-tE-DGa"; */
+"ucz-tE-DGa.title" = "Public";
