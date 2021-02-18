@@ -9,5 +9,6 @@ import UIKit
 import Foundation
 
 var photosForSegue = PhotosResponse()
+var friendIdentifire = 0
 
 

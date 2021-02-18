@@ -18,7 +18,7 @@ public class Public {
         self.newsIcon = newsIcon
         self.newsText = newsText
     }
-    
+
     init(name: String, icon: UIImage) {
         self.name = name
         self.icon = icon

@@ -6,23 +6,22 @@
 //
 
 import Foundation
+import Alamofire
 
 class JsonPhotosResponse: Decodable {
     let response: PhotosResponse
 }
 
 class PhotosResponse: Decodable{
-    var url = [""]
+    var photo = [""]
     enum CodingKeys: String, CodingKey {
         case count
         case items
     }
     enum ItemsKeys: String, CodingKey {
-        case sizes
+        case photo = "photo_604"
     }
-    enum SizesKeys: String, CodingKey {
-        case url
-    }
+    
     
     convenience required init(from decoder: Decoder) throws {
         self.init()
@@ -32,12 +31,24 @@ class PhotosResponse: Decodable{
         
         for _ in (0..<count) {
             let someItemsValues = try itemsValues.nestedContainer(keyedBy: ItemsKeys.self)
-            var sizeValues = try someItemsValues.nestedUnkeyedContainer(forKey: .sizes)
-            for _ in (0..<sizeValues.count!) {
-                let someSizeValue = try sizeValues.nestedContainer(keyedBy: SizesKeys.self)
-                self.url.append(try someSizeValue.decode(String.self, forKey: .url))
-               
+            self.photo.append(try someItemsValues.decode(String.self, forKey: .photo))
+            
+        }
+    }
+}
+
+
+class PhotosService {
+    func loadFriendsPhotos(id: Int, completion: @escaping (PhotosResponse) -> Void )
+    {
+        AF.request("https://api.vk.com/method/photos.get?owner_id=\(id)&album_id=profile&access_token=\(Session.shared.token!)&v=5.21").responseData { (response) in
+            do {
+                let friendsPhoto = try JSONDecoder().decode(JsonPhotosResponse.self, from: response.value!)
+                completion(friendsPhoto.response)
             }
+            catch {
+                print("\(error)")
             }
         }
     }
+}

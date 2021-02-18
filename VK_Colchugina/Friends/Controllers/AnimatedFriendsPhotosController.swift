@@ -10,10 +10,9 @@ import UIKit
 class AnimatedFriendsPhotosController: UIViewController {
     
     @IBOutlet var photoImageView: UIImageView!
-    
     @IBAction func backButton(_ sender: Any) {
         if photoIdentifire == 0 {
-            photoIdentifire = photosForSegue.url.count - 1
+            photoIdentifire = friendsPhotos.photo.count - 1
         }
         else {
             photoIdentifire = photoIdentifire - 1
@@ -21,7 +20,7 @@ class AnimatedFriendsPhotosController: UIViewController {
         UIView.animate(withDuration: 0.3) {[self] in
             self.photoImageView.transform = CGAffineTransform(translationX: -300, y: 0)
         } completion: { _ in
-            let url = URL(string: photosForSegue.url[self.photoIdentifire])
+            let url = URL(string: self.friendsPhotos.photo[self.photoIdentifire])
             self.photoImageView.sd_setImage(with: url, completed: nil)
             self.photoImageView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
             UIView.animate(
@@ -36,9 +35,8 @@ class AnimatedFriendsPhotosController: UIViewController {
                 completion: nil)
         }
     }
-    
     @IBAction func nextButton(_ sender: Any) {
-        if photoIdentifire == photosForSegue.url.count - 1 {
+        if photoIdentifire == friendsPhotos.photo.count - 1 {
             photoIdentifire = 0
         }
         else {
@@ -47,7 +45,7 @@ class AnimatedFriendsPhotosController: UIViewController {
         UIView.animate(withDuration: 0.3) {[self] in
             self.photoImageView.transform = CGAffineTransform(translationX: 300, y: 0)
         } completion: { _ in
-            let url = URL(string: photosForSegue.url[self.photoIdentifire])
+            let url = URL(string: self.friendsPhotos.photo[self.photoIdentifire])
             self.photoImageView.sd_setImage(with: url, completed: nil)
             self.photoImageView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
             UIView.animate(
@@ -63,12 +61,25 @@ class AnimatedFriendsPhotosController: UIViewController {
         }
         
     }
-    private var photoIdentifire = 0
     
+    
+    
+    private var photoIdentifire = 0
+    let photosService = PhotosService()
+    var friendsPhotos = PhotosResponse()
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = URL(string: photosForSegue.url[self.photoIdentifire])
-        self.photoImageView.sd_setImage(with: url, completed: nil)
+        photosService.loadFriendsPhotos(id: friendIdentifire) { [weak self] photos in
+            self!.friendsPhotos = photos
+            let url = URL(string: self!.friendsPhotos.photo[self!.photoIdentifire])
+            self!.photoImageView.sd_setImage(with: url, completed: nil)
+        }
+        
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(photoPan(_:)))
         view.addGestureRecognizer(panGestureRecognizer)
         
@@ -83,7 +94,7 @@ class AnimatedFriendsPhotosController: UIViewController {
         case .ended:
             if recognizer.translation(in: view).x < 0 {
                 
-                if photoIdentifire == photosForSegue.url.count - 1 {
+                if photoIdentifire == friendsPhotos.photo.count - 1 {
                     photoIdentifire = 0
                 }
                 else {
@@ -98,7 +109,7 @@ class AnimatedFriendsPhotosController: UIViewController {
                 UIView.animate(withDuration: 0.3) {[self] in
                     self.photoImageView.transform = CGAffineTransform(translationX: recognizer.translation(in: view).x - 300, y: 0)
                 } completion: { _ in
-                    let url = URL(string: photosForSegue.url[self.photoIdentifire])
+                    let url = URL(string: self.friendsPhotos.photo[self.photoIdentifire])
                     self.photoImageView.sd_setImage(with: url, completed: nil)
                     self.photoImageView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
                     UIView.animate(
@@ -116,7 +127,7 @@ class AnimatedFriendsPhotosController: UIViewController {
             }
             else {
                 if photoIdentifire == 0 {
-                    photoIdentifire = photosForSegue.url.count - 1
+                    photoIdentifire = friendsPhotos.photo.count - 1
                 }
                 else {
                     photoIdentifire = photoIdentifire - 1
@@ -131,7 +142,7 @@ class AnimatedFriendsPhotosController: UIViewController {
                 UIView.animate(withDuration: 0.3) {[self] in
                     self.photoImageView.transform = CGAffineTransform(translationX: recognizer.translation(in: view).x + 300, y: 0)
                 } completion: { _ in
-                    let url = URL(string: photosForSegue.url[self.photoIdentifire])
+                    let url = URL(string: self.friendsPhotos.photo[self.photoIdentifire])
                     self.photoImageView.sd_setImage(with: url, completed: nil)
                     self.photoImageView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
                     UIView.animate(
