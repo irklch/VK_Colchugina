@@ -156,7 +156,7 @@ class FriendsController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       
-        print(friendIdentifire, Session.shared.token)
+        print(friendIdentifire, Session.shared.token!)
     }
     
     

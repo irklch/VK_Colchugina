@@ -8,4 +8,6 @@ pod 'Alamofire', '~> 5.2'
   # Pods for VK_Colchugina
 
 pod 'SDWebImage', '~> 5.0'
+
+pod 'RealmSwift'
 end

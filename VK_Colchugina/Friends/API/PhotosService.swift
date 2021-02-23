@@ -14,6 +14,7 @@ class JsonPhotosResponse: Decodable {
 
 class PhotosResponse: Decodable{
     var photo = [""]
+    
     enum CodingKeys: String, CodingKey {
         case count
         case items
